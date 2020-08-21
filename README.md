@@ -2,12 +2,10 @@
 An express application that visualizes sorting algorithms.
 
 ## Notes
-- Currently only bubble sort is fully functional
 - Check out the live demo here [https://wmhe.github.io/sorting-visualizer/](https://wmhe.github.io/sorting-visualizer/)
 - Credit to [Clément Mihailescu](https://github.com/clementmihailescu) for the project idea
 
 ## To be implemented
-- Selection Sort
 - Insertion Sort
 - Merge Sort
 - Quick Sort
