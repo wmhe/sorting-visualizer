@@ -25,7 +25,7 @@ const SECONDARY_COLOR = "red";
 
     createArray() {
       const array = [];
-      for (let i = 0; i < 50; ++i) {
+      for (let i = 0; i < 70; ++i) {
         array.push(this.intFromInterval(5, 500));
       }
       this.setState({array});
@@ -61,29 +61,26 @@ const SECONDARY_COLOR = "red";
       const newArray = [...this.state.array];
       const animations = selectionSort(newArray)[0];
       const bars = document.getElementsByClassName("num");
-      bars[0].style.backgroundColor = "violet";
+      bars[0].style.backgroundColor = SECONDARY_COLOR;
       for (let i = 0; i < animations.length; ++i)
       {
         const animation = animations[i];
-        const endInd = newArray.length - 1;
-        bars[endInd].style.backgroundColor = "violet";
-        const startIndChange = animation[1];
-        const startInd = animation[0];
-        const currInd = animation[2];
-        if (startIndChange) {
+        const swap = animation[2] === "end";
+        if (swap) {
           setTimeout(() => {
-            bars[startInd - 1].style.backgroundColor = "indigo";
-            bars[startInd].style.backgroundColor = "violet";
+            const height1 = bars[animation[1]].style.height;
+            const height2 = bars[animation[0]].style.height;
+            bars[animation[1]].style.height = height2;
+            bars[animation[0]].style.height = height1;
+            bars[animation[1]].style.backgroundColor = PRIMARY_COLOR;
+            bars[animation[0]].style.backgroundColor = PRIMARY_COLOR;
           }, i * 100);
         }
-        else {
+        else if (animation.length > 1) {
           setTimeout(() => {
-            if (currInd !== 0) {
-              bars[currInd - 1].style.backgroundColor = "indigo";
-              bars[currInd].style.backgroundColor = "red";
-            }
-            else {
-              bars[currInd].style.backgroundColor = "red";
+            if (animation[1] !== animation[2]) {
+              bars[animation[1]].style.backgroundColor = SECONDARY_COLOR;
+              bars[animation[2]].style.backgroundColor = PRIMARY_COLOR;
             }
           }, i * 100);
         }
@@ -130,6 +127,7 @@ const SECONDARY_COLOR = "red";
               ) }
           </div>
           <div className="row">
+            <div className="col text-center">
             <button className="btn btn-primary"
             onClick={() => this.bubbleSort()}
             >Bubble Sort
@@ -142,6 +140,7 @@ const SECONDARY_COLOR = "red";
             onClick={() => this.createArray()}
             >Reset
             </button>
+            </div>
           </div>
         </>
       );
